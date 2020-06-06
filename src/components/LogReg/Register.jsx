@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { useForm } from "../../useForm.js";
 import InputMask from "react-input-mask";
-import { validateRegister } from "./validateRegister.js";
+import { validateRegister } from "./validateForm.js";
 import eye from "../../img/eye.svg";
 
 export const Register = (props) => {
   const [passType, setPassType] = useState("password");
 
-  const { handleChangeWithValidate, handleChange, handleSubmit, values, errors, activeButton } = useForm(
+  const { handleChangeWithValidate, handleSubmit, values, errors } = useForm(
     submit,
     validateRegister
   );
@@ -16,6 +17,21 @@ export const Register = (props) => {
     console.log("Submitted succesfully");
   }
   
+  const [activeButton, setActiveButton] = useState(false);
+  useEffect(() => {
+    if (
+      values.username &&
+      values.nickname &&
+      values.email &&
+      values.tel &&
+      values.password &&
+      values.checkbox
+    ) {
+      setActiveButton(true);
+    } else {
+      setActiveButton(false);
+    }
+  }, [values]);
 
 
 
@@ -137,7 +153,7 @@ export const Register = (props) => {
       </div>
       <div className="footer">
         <p>
-          Есть аккаунт? <a href="#">Войти</a>
+          Есть аккаунт? <NavLink to="/" >Войти</NavLink>
         </p>
       </div>
     </div>

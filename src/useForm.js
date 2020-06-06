@@ -2,21 +2,20 @@ import { useState, useEffect } from "react";
 
 export const useForm = (callback, validate) => {
   const [values, setValues] = useState({
+    login: "",
     username: "",
     nickname: "",
     email: "",
     tel: "",
     password: "",
-    btnIsActive: false,
+    checkbox: false,
   });
 
   const [errors, setErrors] = useState({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [activeButton, setActiveButton] = useState(false);
-
-  const handleChangeWithValidate = (e, callback) => {
+  const handleChangeWithValidate = (e) => {
     const { name, value, checked } = e.target;
     setValues({
       ...values,
@@ -25,7 +24,7 @@ export const useForm = (callback, validate) => {
     if (e.target.type === "checkbox") {
       setValues({
         ...values,
-        btnIsActive: checked,
+        checkbox: checked,
       });
     }
 
@@ -34,18 +33,12 @@ export const useForm = (callback, validate) => {
     validateOnChange(name, value);
   };
 
-  const handleChange = (e, callback) => {
-    const { name, value, checked } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setValues({
       ...values,
       [name]: value,
     });
-    if (e.target.type === "checkbox") {
-      setValues({
-        ...values,
-        btnIsActive: checked,
-      });
-    }
   };
 
   const validateOnChange = (name, value) => {
@@ -137,20 +130,6 @@ export const useForm = (callback, validate) => {
     }
   }, [errors, values]);
 
-  useEffect(() => {
-    if (
-      values.username &&
-      values.nickname &&
-      values.email &&
-      values.tel &&
-      values.password &&
-      values.btnIsActive
-    ) {
-      setActiveButton(true);
-    } else {
-      setActiveButton(false);
-    }
-  }, [values]);
 
   return {
     handleChangeWithValidate,
@@ -158,6 +137,5 @@ export const useForm = (callback, validate) => {
     handleSubmit,
     values,
     errors,
-    activeButton,
   };
 };

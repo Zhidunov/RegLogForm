@@ -1,6 +1,7 @@
 import React from "react";
+import { Switch, HashRouter, Route } from "react-router-dom";
 import "./App.scss";
-import { Login, Register } from "./components/login/index";
+import { Login, Register } from "./components/LogReg/index";
 
 const App = () => {
 
@@ -8,14 +9,25 @@ const App = () => {
 
   return (
       <div className="App">
-        <div className="login">
-          <div className="container">
-            <Register />
-          </div>
-        </div>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/register" component={Register} />
+        </Switch>
       </div>
     );
 }
 
 
-export default App;
+// const wrappedApp = withRouter(App);
+
+const AppContainer = () => {
+  return (
+    <HashRouter basename={process.env.PUBLIC_URL}>
+      <App />
+    </HashRouter>
+  );
+}
+
+
+
+export default AppContainer;

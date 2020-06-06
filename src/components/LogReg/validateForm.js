@@ -33,9 +33,24 @@ export const validateRegister = (values) => {
       "Пароль должен состоять из букв латинского алфавита разного регистра, цифр и специальных символов. Длина 8-16 символов.";
   }
 
-  // if(!values.checked){
+  return errors;
+};
 
-  // }
+export const validateLogin = (values) => {
+  let errors = {};
+
+  // Из документа "RFC 821" который описывает стандарт "Simple Mail Transfer Protocol" следует,
+  // что для имени E-Mail пользователя и имени E-Mail домена максимальная длина установлена в 64 символа,
+  // а следовательно, максимально возможная длина E-Mail адреса составляет 129 символов.
+  if (values.login.length > 129) {
+    errors.password = "Слишком длинный логин";
+  }
+
+
+  // Нет смысла сабмитить форму, если пароль однозначно не найдет совпадений на сервере.
+  if (values.password.length > 16) {
+    errors.password = "Слишком длинный пароль";
+  }
 
   return errors;
 };
