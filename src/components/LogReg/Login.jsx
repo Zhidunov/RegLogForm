@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useForm } from "../../useForm.js";
-import { validateLogin } from "./validateForm.js";
 import eye from "../../img/eye.svg";
 
 export const Login = (props) => {
-  const [passType, setPassType] = useState("password");
+  let [passType, setPassType] = useState("password");
+  
 
-  const { handleChange, handleSubmit, values, errors } = useForm(
-    submit,
-    validateLogin
-  );
+  const { handleChange, handleSubmit, resetValues, values, errors } = useForm(submit);
 
   function submit() {
-    console.log("Submitted succesfully");
+    let authUser = props.login(values.login, values.password);
+    function check(){
+      if(!authUser){
+        resetValues();
+      }
+    }
+    debugger
+    check();
   }
   
   const [activeButton, setActiveButton] = useState(false);
@@ -39,7 +43,6 @@ export const Login = (props) => {
         <form onSubmit={handleSubmit} className="form">
           <div className="form-group">
             <input
-              // className={`${errors.login && "inputError"}`}
               type="text"
               name="login"
               value={values.login}
@@ -49,7 +52,6 @@ export const Login = (props) => {
           </div>
           <div className="form-group">
             <input
-              // className={`${errors.password && "Error"}`}
               type={passType}
               name="password"
               value={values.password}
@@ -73,6 +75,7 @@ export const Login = (props) => {
           >
             Войти
           </button>
+          {errors.errAuth && <p className="error">{errors.errAuth}</p>}
         </form>
       </div>
       <div className="footer">

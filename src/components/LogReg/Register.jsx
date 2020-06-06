@@ -2,30 +2,38 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useForm } from "../../useForm.js";
 import InputMask from "react-input-mask";
-import { validateRegister } from "./validateForm.js";
 import eye from "../../img/eye.svg";
 
 export const Register = (props) => {
   const [passType, setPassType] = useState("password");
 
-  const { handleChangeWithValidate, handleSubmit, values, errors } = useForm(
-    submit,
-    validateRegister
-  );
+  const { handleChangeWithValidate, handleSubmit, values, errors } = useForm(submit);
 
   function submit() {
     console.log("Submitted succesfully");
+    props.registration(values);
   }
   
   const [activeButton, setActiveButton] = useState(false);
   useEffect(() => {
+    let emtyErrors = [];
+    for (let key in errors) {
+      if(errors[key] === "") {
+        emtyErrors.push(true);
+      } else { emtyErrors.push(false); }
+    }
+    function check(element) {
+      return element === true;
+    }
     if (
       values.username &&
       values.nickname &&
       values.email &&
       values.tel &&
       values.password &&
-      values.checkbox
+      values.checkbox && 
+      (emtyErrors.every(check)
+      )
     ) {
       setActiveButton(true);
     } else {

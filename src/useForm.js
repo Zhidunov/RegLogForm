@@ -17,11 +17,12 @@ export const useForm = (callback, validate) => {
 
   const handleChangeWithValidate = (e) => {
     const { name, value, checked } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    if (e.target.type === "checkbox") {
+    if (e.target.type !== "checkbox") {
+      setValues({
+        ...values,
+        [name]: value,
+      });
+    } else {
       setValues({
         ...values,
         checkbox: checked,
@@ -39,6 +40,20 @@ export const useForm = (callback, validate) => {
       ...values,
       [name]: value,
     });
+  };
+
+  const resetValues = () => {
+    setIsSubmitting(false);
+    setValues({
+      login: "",
+      username: "",
+      nickname: "",
+      email: "",
+      tel: "",
+      password: "",
+      checkbox: false,
+    });
+    setErrors({errAuth: "Такого логина или пароля не существует. Попробуйте снова."});
   };
 
   const validateOnChange = (name, value) => {
@@ -120,21 +135,24 @@ export const useForm = (callback, validate) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors(validate(values));
-    setIsSubmitting(true);
+    //setErrors(validate(values));
+    callback();
+    //setIsSubmitting(true);
   };
 
-  useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
-      callback();
-    }
-  }, [errors, values]);
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   if (Object.keys(errors).length === 0 && isSubmitting) {
+  //     callback();
+  //   }
+  // }, [errors, values]);
 
 
   return {
     handleChangeWithValidate,
     handleChange,
     handleSubmit,
+    resetValues,
     values,
     errors,
   };
