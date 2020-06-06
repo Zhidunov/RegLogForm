@@ -134,18 +134,10 @@ export const useForm = (callback, validate) => {
   };
 
   const handleSubmit = (e) => {
+    setIsSubmitting(true);
     e.preventDefault();
-    //setErrors(validate(values));
     callback();
-    //setIsSubmitting(true);
   };
-
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   if (Object.keys(errors).length === 0 && isSubmitting) {
-  //     callback();
-  //   }
-  // }, [errors, values]);
 
 
   return {
@@ -153,6 +145,7 @@ export const useForm = (callback, validate) => {
     handleChange,
     handleSubmit,
     resetValues,
+    isSubmitting,
     values,
     errors,
   };

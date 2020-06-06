@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useForm } from "../../useForm.js";
 import InputMask from "react-input-mask";
@@ -6,15 +7,16 @@ import eye from "../../img/eye.svg";
 
 export const Register = (props) => {
   const [passType, setPassType] = useState("password");
+  const [activeButton, setActiveButton] = useState(false);
 
-  const { handleChangeWithValidate, handleSubmit, values, errors } = useForm(submit);
+  const { handleChangeWithValidate, handleSubmit, isSubmitting, values, errors } = useForm(submitReg);
 
-  function submit() {
-    console.log("Submitted succesfully");
+  function submitReg() {
     props.registration(values);
   }
   
-  const [activeButton, setActiveButton] = useState(false);
+
+  
   useEffect(() => {
     let emtyErrors = [];
     for (let key in errors) {
@@ -41,6 +43,10 @@ export const Register = (props) => {
     }
   }, [values]);
 
+
+  if(isSubmitting){
+    return <Redirect to={"/"} />
+  }
 
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Switch, HashRouter, Route } from "react-router-dom";
-import { auth } from "./LogPass.js";
+import { auth, setNewUser } from "./LogPass.js";
 import "./App.scss";
 import { Login, Register } from "./components/LogReg/index";
 import { MainPage } from "./components/MainPage/MainPage";
@@ -24,7 +24,7 @@ const App = () => {
   }
 
   const registration = (values) => {
-    alert(values);
+    setNewUser(values);
   }
 
   return (
