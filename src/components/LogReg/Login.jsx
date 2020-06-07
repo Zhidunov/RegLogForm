@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { useForm } from "../../useForm.js";
+// import { Login } from "./Login";
 import eye from "../../img/eye.svg";
+import { Checked } from "../Checked.jsx";
 
 export const Login = (props) => {
   let [passType, setPassType] = useState("password");
@@ -16,7 +18,6 @@ export const Login = (props) => {
         resetValues();
       }
     }
-    debugger
     check();
   }
   
@@ -31,6 +32,10 @@ export const Login = (props) => {
       setActiveButton(false);
     }
   }, [values]);
+
+  if(props.isAuth) {
+    return <Checked text={"Вы авторизованы"} path={"/main"}/>
+  }
 
 
   return (

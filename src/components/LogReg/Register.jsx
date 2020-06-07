@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useForm } from "../../useForm.js";
 import InputMask from "react-input-mask";
 import eye from "../../img/eye.svg";
+import { setNewUser } from "../../LogPass.js";
+import { Checked } from "../Checked.jsx";
 
 export const Register = (props) => {
-  const [passType, setPassType] = useState("password");
-  const [activeButton, setActiveButton] = useState(false);
+  let [passType, setPassType] = useState("password");
+  let [activeButton, setActiveButton] = useState(false);
 
   const { handleChangeWithValidate, handleSubmit, isSubmitting, values, errors } = useForm(submitReg);
 
   function submitReg() {
-    props.registration(values);
+    setNewUser(values);
   }
-  
-
   
   useEffect(() => {
     let emtyErrors = [];
@@ -44,8 +43,9 @@ export const Register = (props) => {
   }, [values]);
 
 
-  if(isSubmitting){
-    return <Redirect to={"/"} />
+
+  if(isSubmitting) {
+    return <Checked text={"Вы зарегистрированы"} path={"/"}/>
   }
 
 

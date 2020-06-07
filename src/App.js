@@ -5,15 +5,17 @@ import "./App.scss";
 import { Login, Register } from "./components/LogReg/index";
 import { MainPage } from "./components/MainPage/MainPage";
 
+
 const App = () => {
 
   let [isAuth, setIsAuth] = useState(false);
 
-  let authUser = {};
+  let [authUser, setAuthUser] = useState({});
 
   const login = (login, password) => {
-    authUser = auth(login, password);
-    if(authUser.isAuth){
+    let user = auth(login, password);
+    setAuthUser(user);
+    if(user.isAuth){
       setIsAuth(true);
     }
     return isAuth;
@@ -23,19 +25,12 @@ const App = () => {
     setIsAuth(false);
   }
 
-  const registration = (values) => {
-    setNewUser(values);
-  }
-
   return (
       <div className="App">
         <Switch>
-          <Route exact path="/"
-          render={() => {
-            return (isAuth ? <MainPage logout={logout} authUser={authUser}/> : <Login login={login} isAuth={isAuth}/>)
-          }}
-          />
-          <Route path="/register" render={() => <Register registration={registration}/>}/>
+          <Route path="/main" render={() => <MainPage username={authUser.username} logout={logout} isAuth={isAuth} />}/>
+          <Route exact path="/" render={() => <Login login={login} isAuth={isAuth}/>} />
+          <Route path="/register" render={() => <Register />}/>
         </Switch>
       </div>
     );

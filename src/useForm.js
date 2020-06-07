@@ -134,8 +134,8 @@ export const useForm = (callback, validate) => {
   };
 
   const handleSubmit = (e) => {
-    setIsSubmitting(true);
     e.preventDefault();
+    setIsSubmitting(true);
     callback();
   };
 

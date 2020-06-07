@@ -1,6 +1,11 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 export const MainPage = (props) => {
+
+  if(!props.isAuth) {
+    return <Redirect to="/" />
+  }
   
   return (
     <div>
