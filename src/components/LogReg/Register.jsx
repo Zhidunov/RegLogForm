@@ -4,24 +4,32 @@ import { useForm } from "../../useForm.js";
 import InputMask from "react-input-mask";
 import eye from "../../img/eye.svg";
 import { setNewUser } from "../../LogPass.js";
-import { Checked } from "../Checked.jsx";
+import { Checked } from "../SuccessfulAnimation/Checked.jsx";
 
 export const Register = (props) => {
   let [passType, setPassType] = useState("password");
   let [activeButton, setActiveButton] = useState(false);
 
-  const { handleChangeWithValidate, handleSubmit, isSubmitting, values, errors } = useForm(submitReg);
+  const {
+    handleChangeWithValidate,
+    handleSubmit,
+    isSubmitting,
+    values,
+    errors,
+  } = useForm(submitReg);
 
   function submitReg() {
     setNewUser(values);
   }
-  
+
   useEffect(() => {
     let emtyErrors = [];
     for (let key in errors) {
-      if(errors[key] === "") {
+      if (errors[key] === "") {
         emtyErrors.push(true);
-      } else { emtyErrors.push(false); }
+      } else {
+        emtyErrors.push(false);
+      }
     }
     function check(element) {
       return element === true;
@@ -32,9 +40,8 @@ export const Register = (props) => {
       values.email &&
       values.tel &&
       values.password &&
-      values.checkbox && 
-      (emtyErrors.every(check)
-      )
+      values.checkbox &&
+      emtyErrors.every(check)
     ) {
       setActiveButton(true);
     } else {
@@ -42,12 +49,9 @@ export const Register = (props) => {
     }
   }, [values]);
 
-
-
-  if(isSubmitting) {
-    return <Checked text={"Вы зарегистрированы"} path={"/"}/>
+  if (isSubmitting) {
+    return <Checked text={"Вы зарегистрированы"} path={"/"} />;
   }
-
 
   return (
     <div className="base-container">
@@ -59,9 +63,7 @@ export const Register = (props) => {
         <form onSubmit={handleSubmit} className="form">
           <div className="form-group">
             <p
-              className={`${
-                errors.username && values.username.length !== 0 && "placeholder"
-              }`}
+              className={`${values.username.length !== 0 && "placeholder"}`}
               data-name="Имя"
             ></p>
             <input
@@ -76,9 +78,7 @@ export const Register = (props) => {
           </div>
           <div className="form-group">
             <p
-              className={`${
-                errors.nickname && values.nickname.length !== 0 && "placeholder"
-              }`}
+              className={`${values.nickname.length !== 0 && "placeholder"}`}
               data-name="Никнейм"
             ></p>
             <input
@@ -93,9 +93,7 @@ export const Register = (props) => {
           </div>
           <div className="form-group">
             <p
-              className={`${
-                errors.email && values.email.length !== 0 && "placeholder"
-              }`}
+              className={`${values.email.length !== 0 && "placeholder"}`}
               data-name="Email"
             ></p>
             <input
@@ -110,9 +108,7 @@ export const Register = (props) => {
           </div>
           <div className="form-group">
             <p
-              className={`${
-                errors.tel && values.tel.length !== 0 && "placeholder"
-              }`}
+              className={`${values.tel.length !== 0 && "placeholder"}`}
               data-name="Телефон"
             ></p>
             <InputMask
@@ -127,9 +123,7 @@ export const Register = (props) => {
           </div>
           <div className="form-group">
             <p
-              className={`${
-                errors.password && values.password.length !== 0 && "placeholder"
-              }`}
+              className={`${values.password.length !== 0 && "placeholder"}`}
               data-name="Пароль"
             ></p>
             <input
@@ -152,14 +146,18 @@ export const Register = (props) => {
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
           <div className="form-group checkbox">
-            <input type="checkbox" name="checkbox" onChange={handleChangeWithValidate} />
+            <input
+              type="checkbox"
+              name="checkbox"
+              onChange={handleChangeWithValidate}
+            />
             <span></span>
             <p>Я даю свое согласие на обработку персональных данных</p>
           </div>
           <button
-          disabled={activeButton ? "" : "disabled"}
-          type="submit" 
-          className={activeButton ? "activeBtn" : "btn"}
+            disabled={activeButton ? "" : "disabled"}
+            type="submit"
+            className={activeButton ? "activeBtn" : "btn"}
           >
             Зарегистрироваться
           </button>
@@ -167,7 +165,7 @@ export const Register = (props) => {
       </div>
       <div className="footer">
         <p>
-          Есть аккаунт? <NavLink to="/" >Войти</NavLink>
+          Есть аккаунт? <NavLink to="/">Войти</NavLink>
         </p>
       </div>
     </div>
