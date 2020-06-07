@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/RegLogForm/static/css/main.9955f554.chunk.css",
+    "main.js": "/RegLogForm/static/js/main.b9710046.chunk.js",
+    "main.js.map": "/RegLogForm/static/js/main.b9710046.chunk.js.map",
+    "runtime-main.js": "/RegLogForm/static/js/runtime-main.276871b9.js",
+    "runtime-main.js.map": "/RegLogForm/static/js/runtime-main.276871b9.js.map",
+    "static/js/2.67855730.chunk.js": "/RegLogForm/static/js/2.67855730.chunk.js",
+    "static/js/2.67855730.chunk.js.map": "/RegLogForm/static/js/2.67855730.chunk.js.map",
+    "index.html": "/RegLogForm/index.html",
+    "precache-manifest.684b446c538fccb678b87fcf227fad85.js": "/RegLogForm/precache-manifest.684b446c538fccb678b87fcf227fad85.js",
+    "service-worker.js": "/RegLogForm/service-worker.js",
+    "static/css/main.9955f554.chunk.css.map": "/RegLogForm/static/css/main.9955f554.chunk.css.map",
+    "static/js/2.67855730.chunk.js.LICENSE.txt": "/RegLogForm/static/js/2.67855730.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/RegLogForm/static/media/SF-Compact-Display-Regular.5edd8bf1.woff",
+    "static/media/eye.svg": "/RegLogForm/static/media/eye.bdb6eb66.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.276871b9.js",
+    "static/js/2.67855730.chunk.js",
+    "static/css/main.9955f554.chunk.css",
+    "static/js/main.b9710046.chunk.js"
+  ]
+}
